@@ -39,6 +39,8 @@ public class livestock extends javax.swing.JFrame {
     String admin = login.Session.getAdmin();
 
 
+    
+
     private int selectedRowIndex = -1;
 
     public static Connection getConnection() throws SQLException {
@@ -67,7 +69,7 @@ public class livestock extends javax.swing.JFrame {
 
         // Connect to the database and retrieve data
         try (Connection con = getConnection();
-              PreparedStatement pst = con.prepareStatement("SELECT Animal, AvailableNumber FROM livestock WHERE Animal LIKE ?");
+              PreparedStatement pst = con.prepareStatement("SELECT * FROM livestock WHERE Animal LIKE ?");
                 ) {
                     // Set the search parameter using a wildcard
                     pst.setString(1, "%" + searchItem + "%");
@@ -76,6 +78,7 @@ public class livestock extends javax.swing.JFrame {
 
            // Create a DefaultTableModel with column names
            DefaultTableModel model = new DefaultTableModel(columns, 0);
+           
 
            // Iterate through the result set and add data to the model
            while (rs.next()) {
@@ -161,6 +164,7 @@ public class livestock extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -399,6 +403,7 @@ public class livestock extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(0, 102, 51));
 
+        jTextField4.setEditable(false);
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -465,6 +470,13 @@ public class livestock extends javax.swing.JFrame {
             }
         });
 
+        jButton11.setText("Refresh");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -491,7 +503,10 @@ public class livestock extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton9))))
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton11)))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -509,7 +524,9 @@ public class livestock extends javax.swing.JFrame {
                         .addGap(72, 72, 72)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(16, 16, 16)
+                        .addComponent(jButton11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -606,6 +623,7 @@ public class livestock extends javax.swing.JFrame {
             String value2 = jTextField5.getText();
 
             // Updating records in a database
+
             String sql2 = "update livestock set Animal='"+ value1+"' ,AvailableNumber='"+value2+"' where Animal='"+value1+"'";
             pst = con.prepareStatement(sql2);
      
@@ -718,6 +736,11 @@ public class livestock extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        populateTableFromDatabase("");
+    }//GEN-LAST:event_jButton11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -756,6 +779,7 @@ public class livestock extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
